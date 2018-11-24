@@ -1,5 +1,6 @@
 package com.example.cheny.coolweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.cheny.coolweather.gson.Forecast;
 import com.example.cheny.coolweather.gson.Weather;
+import com.example.cheny.coolweather.service.AutoUpdateService;
 import com.example.cheny.coolweather.util.HttpUtil;
 import com.example.cheny.coolweather.util.Utility;
 
@@ -76,8 +78,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText = (TextView) findViewById(R.id.car_wash_text);
         sportText = (TextView) findViewById(R.id.sport_text);
 
-        drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        navButton=(Button)findViewById(R.id.nav_button);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navButton = (Button) findViewById(R.id.nav_button);
 
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +191,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     //加载必应每日一图
