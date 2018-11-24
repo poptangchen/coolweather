@@ -2,6 +2,7 @@ package com.example.cheny.coolweather;
 
 import android.accounts.OnAccountsUpdateListener;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.cheny.coolweather.db.City;
 import com.example.cheny.coolweather.db.County;
 import com.example.cheny.coolweather.db.Province;
+import com.example.cheny.coolweather.gson.Weather;
 import com.example.cheny.coolweather.util.HttpUtil;
 import com.example.cheny.coolweather.util.Utility;
 
@@ -88,6 +90,12 @@ public class ChooseAreaFragment extends Fragment{
                 }else if (currentLevel==LEVEL_CITY){
                     selectedCity=cityList.get(position);
                     queryCounties();
+                }else if (currentLevel==LEVEL_COUNTY){
+                    String weatherId=countyList.get(position).getWeatherId();
+                    Intent intent=new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
@@ -225,4 +233,5 @@ public class ChooseAreaFragment extends Fragment{
             progressDialog.dismiss();
         }
     }
+
 }
